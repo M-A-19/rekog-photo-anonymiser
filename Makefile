@@ -29,14 +29,15 @@ test: clean _build
 	/bin/bash -c "cd io; python3 -m pip install -r /lambda/package-requirements.txt; python3 -m pytest awslambda/test" \
 
 clean:
-	 docker rmi ${IMAGE_NAME}:latest  || true
-	 rm ${BUILD_DIR}/lambda.zip
+	@docker rmi -f ${IMAGE_NAME}:latest  || true
+	rm -f ${BUILD_DIR}/lambda.zip
 
 upload:
 	cd ${BUILD_DIR}
 	aws lambda update-function-code \
     --function-name ${FUNCTION_NAME} \
     --zip-file fileb:///${CUR_DIR}/${BUILD_DIR}/lambda.zip \
+    --no-paginate \
 
 deploy:clean test package upload
 
