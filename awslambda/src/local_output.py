@@ -5,7 +5,7 @@ This file is an interim solution for the testing of lambda code locally.
 """
 import json
 
-from .modules.anonymiser import Anonymiser
+from modules.anonymiser import Anonymiser
 
 
 def main():

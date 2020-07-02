@@ -1,6 +1,6 @@
 import json, boto3
 
-from .modules.anonymiser import Anonymiser
+from modules.anonymiser import Anonymiser
 
 s3_client = boto3.client('s3')
 

@@ -1,8 +1,10 @@
 APP_NAME = lambda
+FUNCTION_NAME = rekogFaceAnon
 
 IMAGE_NAME = ${APP_NAME}
 
 CUR_DIR = $(shell echo "${PWD}")
+BUILD_DIR = deployment
 
 # location of Dockerfiles
 DOCKER_FILE_DIR=docker
@@ -20,7 +22,7 @@ _build:
 
 
 test: clean _build
-	docker run  -t \
+	docker run  --rm \
 	--name ${APP_NAME}-unit-tests \
 	--volume ${CUR_DIR}:/io \
 	${IMAGE_NAME}:latest \
@@ -28,12 +30,21 @@ test: clean _build
 
 clean:
 	 docker rmi ${IMAGE_NAME}:latest  || true
+	 rm ${BUILD_DIR}/lambda.zip
 
-deploy:_build
+upload:
+	cd ${BUILD_DIR}
+	aws lambda update-function-code \
+    --function-name ${FUNCTION_NAME} \
+    --zip-file fileb:///${CUR_DIR}/${BUILD_DIR}/lambda.zip \
+
+deploy:clean test package upload
+
+package:
 	docker run --rm \
 	--name ${APP_NAME}-deploy \
 	--volume ${CUR_DIR}:/io \
     ${IMAGE_NAME}:latest \
     bash /lambda/packager.sh \
 
-.PHONY: deploy _build clean
+.PHONY: deploy _build clean upload package
