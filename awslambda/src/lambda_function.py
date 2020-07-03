@@ -12,6 +12,7 @@ def lambda_handler(event, context):
         photo_name = 'wikiperson1.jpg'
 
     bucket = 'pez-rekog-image1'
+    region = 'eu-west-2'
     overlay_name = 'laughing.png'
     use_guides = False
     output_path = '/tmp/output.jpg'
@@ -37,6 +38,7 @@ def lambda_handler(event, context):
 
     output = {
         'isError' : False,
+        'result_uri': bucket + '.s3.' + region +'.amazonaws.com/' + output_name,
         'timestamp': anony.processed,
         'jobtime': int(anony.jobtime * 1000),
         'facecount': str(len(locations)),

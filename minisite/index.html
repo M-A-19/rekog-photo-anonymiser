@@ -20,11 +20,11 @@
         });
 
 
-        function displayOutput() {
+        function displayOutput(imgUri) {
 
             var d = new Date();
 
-            document.getElementById('outfile').innerHTML = '<img id="outputMain" src="https://pez-rekog-image1.s3.eu-west-2.amazonaws.com/output.jpg?' + d.getSeconds() + '">';
+            document.getElementById('outfile').innerHTML = '<img id="outputMain" src="http://' + imgUri + '?' + d.getSeconds() + '">';
         }
 
         function invokeLambda(photoName) {
@@ -47,7 +47,7 @@
                     response = JSON.parse(data.Payload)
                     console.log(response);
                     document.getElementById('loader').style.display = 'none';
-                    displayOutput();
+                    displayOutput(response.result_uri);
                 }
             });
 
