@@ -15,7 +15,8 @@
             region: myRegion,
             credentials: new AWS.CognitoIdentityCredentials({
                 IdentityPoolId: IdentityPoolId
-            })
+            }),
+            convertResponseTypes: !1,
         });
 
 
@@ -43,7 +44,8 @@
                 if (err) console.log(err, err.stack); // an error occurred
                 else {
                     // successful response
-                    console.log(data);
+                    response = JSON.parse(data.Payload)
+                    console.log(response);
                     document.getElementById('loader').style.display = 'none';
                     displayOutput();
                 }

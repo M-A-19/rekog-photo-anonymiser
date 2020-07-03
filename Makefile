@@ -37,7 +37,8 @@ upload:
 	aws lambda update-function-code \
     --function-name ${FUNCTION_NAME} \
     --zip-file fileb:///${CUR_DIR}/${BUILD_DIR}/lambda.zip \
-    --no-paginate \
+    --output json \
+    --no-paginate >${BUILD_DIR}/deploy-receipt.json
 
 deploy:clean test package upload
 

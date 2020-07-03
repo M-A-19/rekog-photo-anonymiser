@@ -36,13 +36,11 @@ def lambda_handler(event, context):
     s3_client.upload_file(output_path, bucket, output_name, ExtraArgs={'ACL': 'public-read'})
 
     output = {
+        'isError' : False,
         'timestamp': anony.processed,
         'jobtime': int(anony.jobtime * 1000),
         'facecount': str(len(locations)),
         'photo_name': photo_name,
     }
 
-    return {
-        'statusCode': 200,
-        'body': json.dumps(output),
-    }
+    return output
