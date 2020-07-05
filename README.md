@@ -27,7 +27,7 @@ Run the test make target to build the docker image and run the tests.
 > Make test
 ```
 
-## Technologies
+## Technologies / Frameworks
 
 <b>These things were very helpful:</b>
 - [Flex box grid](http://flexboxgrid.com)
