@@ -10,6 +10,10 @@
 
         var myRegion = 'eu-west-2';
         var IdentityPoolId = 'eu-west-2:5f4fed45-de99-4442-9ee3-948b430bcc45';
+        var slideIndex = 0;
+        var slideInt = 0;
+        var slides = document.getElementsByClassName("slide");
+
 
         AWS.config.update({
             region: myRegion,
@@ -20,17 +24,24 @@
         });
 
 
-        function displayOutput(imgUri) {
+        function displayOutput(info) {
 
             var d = new Date();
 
-            document.getElementById('outfile').innerHTML = '<img id="outputMain" src="http://' + imgUri + '?' + d.getSeconds() + '">';
+            document.getElementById('jobtime').innerHTML = info.jobtime + "ms";
+            document.getElementById('facecount').innerHTML = info.facecount;
+            document.getElementById('outputMain').src = 'http://' + info.result_uri + '?' + d.getSeconds();
+
+            nextSlide();
+            slideInt = setInterval(nextSlide, 3000);
         }
 
         function invokeLambda(photoName) {
 
-            document.getElementById('outfile').innerHTML = '';
-             document.getElementById('loader').style.display = 'block';
+
+            hideSlides();
+            slides[2].style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
 
             var lambda = new AWS.Lambda();
 
@@ -47,13 +58,30 @@
                     response = JSON.parse(data.Payload)
                     console.log(response);
                     document.getElementById('loader').style.display = 'none';
-                    displayOutput(response.result_uri);
+                    displayOutput(response);
                 }
             });
 
         }
+        function hideSlides() {
+            var end = slides.length;
+            for (i = 0; i < end; i++) {
+                slides[i].style.display = "none";
+            }
+        }
 
-      </script>
+        function nextSlide() {
+            hideSlides()
+            slides[slideIndex].style.display = "block";
+            if (slideIndex +1 >= slides.length) {
+                clearInterval(slideInt);
+                slideIndex=0;
+            } else {
+                slideIndex++;
+            }
+        }
+
+    </script>
 </head>
 <body>
 <header>
@@ -66,23 +94,23 @@
             <div class="selector">
 
                 <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople1.jpg')">
-                    <img src="images/thumbs/wikipeople1.jpg" alt="Example image">
+                    <img src="images/thumbs/wikipeople1.jpg" alt="celebrity thumbnail photo">
                 </a>
 
                 <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople2.jpg')">
-                    <img src="images/thumbs/wikipeople2.jpg" alt="Example image">
+                    <img src="images/thumbs/wikipeople2.jpg" alt="celebrity thumbnail photo">
                 </a>
 
                 <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople3.jpg')">
-                    <img src="images/thumbs/wikipeople3.jpg" alt="Example image">
+                    <img src="images/thumbs/wikipeople3.jpg" alt="celebrity thumbnail photo">
                 </a>
 
                 <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople4.jpg')">
-                    <img src="images/thumbs/wikipeople4.jpg" alt="Example image">
+                    <img src="images/thumbs/wikipeople4.jpg" alt="celebrity thumbnail photoe">
                 </a>
 
                 <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople5.jpg')">
-                    <img src="images/thumbs/wikipeople5.jpg" alt="Example image">
+                    <img src="images/thumbs/wikipeople5.jpg" alt="celebrity thumbnail photo">
                 </a>
 
             </div>
@@ -91,10 +119,26 @@
     </div>
     <div class="row center-xs">
         <div class="col-xs-6">
-                <div id="outputPlaceholder">
-                    <span id="outfile"></span>
-                    <div id="loader" style="display: none;"></div>
+            <div id="outputPlaceholder">
+                <div id="loader" style="display: none;"></div>
+                <div class="slideshow">
+                    <div class="fade slide" style="display: none;">
+                        <div class="slide-text">
+                            <p>Processed in</p>
+                            <h2 id="jobtime">0ms</h2>
+                        </div>
+                    </div>
+                    <div class="fade slide" style="display: none;">
+                        <div class="slide-text">
+                            <h2 id ="facecount">0</h2>
+                            <p>Faces Detected</p>
+                        </div>
+                    </div>
+                    <div class="fade slide" style="display: none;">
+                        <img id="outputMain" src="#">
+                    </div>
                 </div>
+            </div>
         </div>
     </div>
 </section>

@@ -28,25 +28,40 @@ header h1 {
 
 }
 
+.slideshow p {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.slideshow h2 {
+    margin: 0;
+    font-size: 4rem;
+}
+
+.slideshow .slide-text {
+    color:#fff;
+    padding-top: 25%;
+}
+
 .selector {
     background: black;
 }
 
 /* [1] The container */
 .img-hover-zoom {
-  height: 76px; /* [1.1] Set it as per your need */
-  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+    height: 76px; /* [1.1] Set it as per your need */
+    overflow: hidden; /* [1.2] Hide the overflowing of child elements */
     display: inline-block;
 }
 
 /* [2] Transition property for smooth transformation of images */
 .img-hover-zoom img {
-  transition: transform .5s ease;
+    transition: transform .5s ease;
 }
 
 /* [3] Finally, transforming the image when container gets hovered */
 .img-hover-zoom:hover img {
-  transform: scale(1.5);
+    transform: scale(1.5);
 }
 
 #outputMain {
@@ -56,22 +71,49 @@ header h1 {
 #outputPlaceholder {
     max-width: 788px;
     display:block;
-  height: 600px;
+    height: 600px;
     background: #513e5d;
 }
 
 #loader {
     max-width: 788px;
     display:block;
-  height: 600px;
-  background: #000;
+    height: 600px;
+    background: #000;
     margin-left: auto;
     margin-right: auto;
-  animation: blackout 1.5s alternate infinite ease-in;
+    animation: blackout 1.5s alternate infinite ease-in;
+}
+
+.slide {
+    max-width: 788px;
+    height: 600px;
+    display:block;
+    background: #000;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
 }
 
 @keyframes blackout {
-  0%   {transform: scale(.6);}
-  100% {transform: scale(1);}
+    0%   {transform: scale(.6);}
+    100% {transform: scale(1);}
 }
 
