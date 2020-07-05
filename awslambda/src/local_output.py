@@ -3,7 +3,7 @@
 This file is an interim solution for the testing of lambda code locally.
 
 """
-import json
+import json, os
 
 from modules.anonymiser import Anonymiser
 
@@ -16,7 +16,7 @@ def main():
     photo_name = 'wikipeople1.jpg'
     overlay_name = 'laughing.png'
     use_guides = True
-    bucket = 'pez-rekog-image1'
+    bucket = os.environ['TARGET_BUCKET']
     output_path = 'output.jpg'
 
     anony = Anonymiser()

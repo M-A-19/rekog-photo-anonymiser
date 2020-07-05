@@ -1,9 +1,9 @@
 ## Rekog Photo Anonymiser
 Photo facial anonymiser using AWS Rekognition. to identify and obscure faces within a photograph.
 
-## Intention
+## Purpose
 I had the intent to detect faces in a photo using my existing knowledge of Keras/tensorflow
-Then I discovered that AWS provides this as a service called Rekognition.
+Then I discovered that AWS provides this as a service in Rekognition.
 
 This project provides a Lambda function to query Rekognition and use the results to obscure the photo data in the identified regions.
 

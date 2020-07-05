@@ -1,6 +1,7 @@
 """Function to deploy as AWS lambda service.
 
 """
+import os
 import boto3
 
 from modules.anonymiser import Anonymiser
@@ -21,7 +22,7 @@ def lambda_handler(event, context):
     else:
         photo_name = 'wikiperson1.jpg'
 
-    bucket = 'pez-rekog-image1'
+    bucket = os.environ['TARGET_BUCKET']
     region = 'eu-west-2'
     overlay_name = 'laughing.png'
     use_guides = False
