@@ -14,5 +14,15 @@ Python code compliant to the pep-8 standard.
 
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
  
+## Requirements
+
+* [AWS CLI (For deployment to AWS, not required to run code.)](https://aws.amazon.com/cli/)
+* [Docker](https://www.docker.com/community-edition)
+
+## Tests
+Run the test make target to build the docker image and run the tests.
+```bash
+> Make test
+```
 ## License
 MIT license
