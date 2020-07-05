@@ -2,9 +2,9 @@
 
 """
 import io
-import boto3
-
 from time import gmtime, strftime, perf_counter
+
+import boto3
 from PIL import ImageDraw
 from PIL import Image
 from PIL import ImageFont
@@ -21,6 +21,7 @@ class Anonymiser(object):
         self.s3_client = boto3.client('s3')
         self.start = 0
         self.jobtime = 0
+        self.processed = ''
         # can we get rekog time used also?
 
 
@@ -77,9 +78,9 @@ class Anonymiser(object):
 
         # draw box in image.
         for i in range(0, style['line_width']):
-            tl = (coords[0][0] + i, coords[0][1] + i)
-            br = (coords[1][0] + i, coords[1][1] + i)
-            draw.rectangle((tl, br), fill=None, outline=style['linecolor'])
+            tplt = (coords[0][0] + i, coords[0][1] + i)
+            btrt = (coords[1][0] + i, coords[1][1] + i)
+            draw.rectangle((tplt, btrt), fill=None, outline=style['linecolor'])
 
     def find_box_centre(self, coords):
         """
@@ -118,7 +119,8 @@ class Anonymiser(object):
         :return: list
         """
         client = boto3.client('rekognition')
-        response = client.detect_faces(Image={'S3Object': {'Bucket': bucket, 'Name': photo}}, Attributes=['DEFAULT'])
+        s3bucket = {'S3Object': {'Bucket': bucket, 'Name': photo}}
+        response = client.detect_faces(Image=s3bucket, Attributes=['DEFAULT'])
         boxes = []
 
         for detail in response['FaceDetails']:

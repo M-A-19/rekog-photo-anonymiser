@@ -1,10 +1,20 @@
-import json, boto3
+"""Function to deploy as AWS lambda service.
+
+"""
+import boto3
 
 from modules.anonymiser import Anonymiser
 
 s3_client = boto3.client('s3')
 
+
 def lambda_handler(event, context):
+    """A function for AWS Lambda to invoke when the service executes our code.
+
+    :param (obj) event:   Event data for the handler.
+    :param (obj) context: Information about the invocation, function, and execution environment.
+    :return (obj):
+    """
 
     if 'photo_name' in event.keys():
         photo_name = event['photo_name']
@@ -37,8 +47,8 @@ def lambda_handler(event, context):
     s3_client.upload_file(output_path, bucket, output_name, ExtraArgs={'ACL': 'public-read'})
 
     output = {
-        'isError' : False,
-        'result_uri': bucket + '.s3.' + region +'.amazonaws.com/' + output_name,
+        'isError': False,
+        'result_uri': bucket + '.s3.' + region + '.amazonaws.com/' + output_name,
         'timestamp': anony.processed,
         'jobtime': int(anony.jobtime * 1000),
         'facecount': str(len(locations)),

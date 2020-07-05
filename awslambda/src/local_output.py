@@ -9,12 +9,15 @@ from modules.anonymiser import Anonymiser
 
 
 def main():
+    """Version of lambda_function.lambda_handler() for testing locally.
+
+    :return:
+    """
     photo_name = 'wikipeople1.jpg'
     overlay_name = 'laughing.png'
     use_guides = True
     bucket = 'pez-rekog-image1'
     output_path = 'output.jpg'
-
 
     anony = Anonymiser()
 
@@ -39,7 +42,6 @@ def main():
     }
 
     print(json.dumps(output))
-
 
 
 if __name__ == "__main__":
