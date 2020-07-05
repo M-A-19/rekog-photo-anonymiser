@@ -26,5 +26,11 @@ Run the test make target to build the docker image and run the tests.
 ```bash
 > Make test
 ```
+
+## Technologies
+
+<b>These things were very helpful:</b>
+- [Flex box grid](http://flexboxgrid.com)
+
 ## License
 MIT license

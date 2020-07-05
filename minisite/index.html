@@ -23,7 +23,6 @@
             convertResponseTypes: !1,
         });
 
-
         function displayOutput(info) {
 
             var d = new Date();
@@ -38,9 +37,7 @@
 
         function invokeLambda(photoName) {
 
-
             hideSlides();
-            slides[2].style.display = 'none';
             document.getElementById('loader').style.display = 'block';
 
             var lambda = new AWS.Lambda();
