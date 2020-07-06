@@ -28,6 +28,13 @@ header h1 {
 
 }
 
+.footer {
+    text-align: center;
+    background: #513e5d;
+    min-height:100px;
+    color:#fff;
+}
+
 .slideshow p {
     margin: 0;
     font-size: 2rem;
@@ -43,7 +50,7 @@ header h1 {
     padding-top: 25%;
 }
 
-.selector {
+.picker {
     background: black;
 }
 
@@ -73,6 +80,8 @@ header h1 {
     display:block;
     height: 600px;
     background: #513e5d;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #loader {
@@ -92,6 +101,33 @@ header h1 {
     background: #000;
     margin-left: auto;
     margin-right: auto;
+}
+
+.bodytext {
+
+
+}
+
+.bodytext p {
+    font-family: Arial,Helvetica,sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+.section-header {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-family: Arial,Helvetica,sans-serif;
+    color: grey;
+    font-size:0.8rem;
+}
+
+.section-container {
+    margin-left: 60px;
+    margin-right: 60px;
 }
 
 /* Fading animation */

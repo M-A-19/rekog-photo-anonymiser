@@ -1,4 +1,4 @@
-## Rekog Photo Anonymiser
+##  AWS Rekognition Face Data Anonymiser.
 Photo facial anonymiser using AWS Rekognition. to identify and obscure faces within a photograph.
 
 ## Purpose

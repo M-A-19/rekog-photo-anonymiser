@@ -38,6 +38,8 @@
         function invokeLambda(photoName) {
 
             hideSlides();
+            //knock the prompt slide out of play, we won't need it again.
+            slideIndex=1;
             document.getElementById('loader').style.display = 'block';
 
             var lambda = new AWS.Lambda();
@@ -58,6 +60,8 @@
                     displayOutput(response);
                 }
             });
+            //preventDefault
+            return false;
 
         }
         function hideSlides() {
@@ -84,29 +88,47 @@
 <header>
     <h1>AWS Rekognition face Anonymiser</h1>
 </header>
+
+<div class="row">
+    <div class="col section-container">
+        <div class="row section-header between-xs">
+            <div class="col"><span>AWS / Python Project</span></div>
+            <div class="col"></div>
+            <div class="col">Jun-July 2020</div>
+        </div>
+        <div class ="bodytext">
+            <p>Facial recognition is often discussed in reference to its use for identification, however facial recognition is just as important for *Anonymisation*<p>
+            <p>With more and more jurisdictions recognising an individual's right to control the use of their digital image, its pretty handy for content creators to have the tools to locate and obscure identifiable faces in an image.</p>
+            <p>I'd been considering how I could craft such an app using Keras/tensorflow and publicly-available facial recognition libraries when I discovered that AWS provides facial location as a service in Amazon Rekognition.</p>
+            <p>It occurred to me that this would be a great demonstration of the possibilities of AWS lambda Applications!</p>
+            <p>This project provides a Lambda function to query Rekognition and use the results to obscure the photo data in the identified regions of various public domain photgraphs.</p>
+
+        </div>
+    </div>
+</div>
 <section>
-    <div class="row center-xs">
-        <div class="col-xs-6">
+    <div class="row center-xs picker">
+        <div class="col">
 
-            <div class="selector">
+            <div>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople1.jpg')">
+                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople1.jpg');return false;">
                     <img src="images/thumbs/wikipeople1.jpg" alt="celebrity thumbnail photo">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople2.jpg')">
+                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople2.jpg');return false;">
                     <img src="images/thumbs/wikipeople2.jpg" alt="celebrity thumbnail photo">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople3.jpg')">
+                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople3.jpg');return false;">
                     <img src="images/thumbs/wikipeople3.jpg" alt="celebrity thumbnail photo">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople4.jpg')">
+                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople4.jpg');return false;">
                     <img src="images/thumbs/wikipeople4.jpg" alt="celebrity thumbnail photoe">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople5.jpg')">
+                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople5.jpg');return false;">
                     <img src="images/thumbs/wikipeople5.jpg" alt="celebrity thumbnail photo">
                 </a>
 
@@ -114,11 +136,16 @@
 
         </div>
     </div>
-    <div class="row center-xs">
-        <div class="col-xs-6">
+    <div class="row center-xs center-sm center-md center-lg ">
+        <div class="col-xs-12 col-sm-10 col-md-12 col-lg-10">
             <div id="outputPlaceholder">
                 <div id="loader" style="display: none;"></div>
                 <div class="slideshow">
+                    <div class="slide">
+                        <div class="slide-text">
+                            <p>Click an image above to anonymise.</p>
+                        </div>
+                    </div>
                     <div class="fade slide" style="display: none;">
                         <div class="slide-text">
                             <p>Processed in</p>
@@ -139,7 +166,11 @@
         </div>
     </div>
 </section>
+<div class="row center-xs footer">
+    <div class="col">
+        <p>Laid down with <a href="http://flexboxgrid.com">flexboxgrid</a><br />
+        All images licensed under <a href="https://creativecommons.org">Creative Commons</a></p>
+    </div>
 </div>
-</section>
 </body>
 </html>
