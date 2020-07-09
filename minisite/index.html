@@ -6,83 +6,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="styles/global.css"/>
     <link rel="stylesheet" type="text/css" href="styles/flexboxgrid.min.css" />
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.259.1.min.js"></script>
-    <script>
-
-        var myRegion = 'eu-west-2';
-        var IdentityPoolId = 'eu-west-2:5f4fed45-de99-4442-9ee3-948b430bcc45';
-        var slideIndex = 0;
-        var slideInt = 0;
-        var slides = document.getElementsByClassName("slide");
-
-
-        AWS.config.update({
-            region: myRegion,
-            credentials: new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: IdentityPoolId
-            }),
-            convertResponseTypes: !1,
-        });
-
-        function displayOutput(info) {
-
-            var d = new Date();
-
-            document.getElementById('jobtime').innerHTML = info.jobtime + "ms";
-            document.getElementById('facecount').innerHTML = info.facecount;
-            document.getElementById('outputMain').src = 'http://' + info.result_uri + '?' + d.getSeconds();
-
-            nextSlide();
-            slideInt = setInterval(nextSlide, 3000);
-        }
-
-        function invokeLambda(photoName) {
-
-            hideSlides();
-            //knock the prompt slide out of play, we won't need it again.
-            slideIndex=1;
-            document.getElementById('loader').style.display = 'block';
-
-            var lambda = new AWS.Lambda();
-
-            var params = {
-                FunctionName: "rekogFaceAnon",
-                Payload: '{"photo_name": "' + photoName + '" }'
-            };
-
-
-            lambda.invoke(params, function (err, data) {
-                if (err) console.log(err, err.stack); // an error occurred
-                else {
-                    // successful response
-                    response = JSON.parse(data.Payload)
-                    console.log(response);
-                    document.getElementById('loader').style.display = 'none';
-                    displayOutput(response);
-                }
-            });
-            //preventDefault
-            return false;
-
-        }
-        function hideSlides() {
-            var end = slides.length;
-            for (i = 0; i < end; i++) {
-                slides[i].style.display = "none";
-            }
-        }
-
-        function nextSlide() {
-            hideSlides()
-            slides[slideIndex].style.display = "block";
-            if (slideIndex +1 >= slides.length) {
-                clearInterval(slideInt);
-                slideIndex=0;
-            } else {
-                slideIndex++;
-            }
-        }
-
-    </script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 <header>
@@ -112,23 +36,23 @@
 
             <div>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople1.jpg');return false;">
+                <a href="#" class="img-hover-zoom">
                     <img src="images/thumbs/wikipeople1.jpg" alt="celebrity thumbnail photo">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople2.jpg');return false;">
+                <a href="#" class="img-hover-zoom">
                     <img src="images/thumbs/wikipeople2.jpg" alt="celebrity thumbnail photo">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople3.jpg');return false;">
+                <a href="#" class="img-hover-zoom">
                     <img src="images/thumbs/wikipeople3.jpg" alt="celebrity thumbnail photo">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople4.jpg');return false;">
+                <a href="#" class="img-hover-zoom">
                     <img src="images/thumbs/wikipeople4.jpg" alt="celebrity thumbnail photoe">
                 </a>
 
-                <a href="#" class="img-hover-zoom" onclick="invokeLambda('wikipeople5.jpg');return false;">
+                <a href="#" class="img-hover-zoom">
                     <img src="images/thumbs/wikipeople5.jpg" alt="celebrity thumbnail photo">
                 </a>
 

@@ -1,7 +1,7 @@
 """Methods for modifying images using data returned from the AWS Rekog service.
 
 """
-import io
+import io, os
 from time import gmtime, strftime, perf_counter
 
 import boto3
@@ -59,7 +59,7 @@ class Anonymiser(object):
         :return:
         """
         # get a font
-        fnt = ImageFont.truetype('fonts/FreeMono.ttf', 40)
+        fnt = ImageFont.truetype(os.environ['FONT_DIR'] + '/FreeMono.ttf', 40)
         text_width, text_height = draw.textsize(text, fnt)
 
         # draw text, half opacity
