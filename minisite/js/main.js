@@ -1,17 +1,18 @@
 "use strict";
-(function(window,AWS,undefined) {
+
+(function(window,AWS) {
 
     // private properties
-    var functionname = "rekogFaceAnon",
-        myRegion = 'eu-west-2',
-        IdentityPoolId = 'eu-west-2:5f4fed45-de99-4442-9ee3-948b430bcc45';
+    var functionname = "rekogFaceAnon";
+    var myRegion = "eu-west-2";
+    var IdentityPoolId = "eu-west-2:5f4fed45-de99-4442-9ee3-948b430bcc45";
 
     AWS.config.update({
         region: myRegion,
         credentials: new AWS.CognitoIdentityCredentials({
             IdentityPoolId: IdentityPoolId
         }),
-        convertResponseTypes: !1,
+        convertResponseTypes: !1
     });
 
     var lambda = new AWS.Lambda();
@@ -27,7 +28,7 @@
      */
     function bindThumbs(thumbs) {
         var end = thumbs.length;
-        for (var i = 0; i < end; i++) {
+        for (var i = 0; i < end; i+=1) {
             thumbs[i].addEventListener("click", createthumbbehaviour(i));
         }
     }
@@ -53,14 +54,14 @@
      * @returns {Function}
      */
     function createthumbbehaviour(i) {
-        var photoname = "wikipeople" + (i + 1);
+        var photoname = "wikipeople" + (i + 1) + ".jpg";
         return function(event) {
             slideshow.hideslides();
             displayloader(true);
             event.preventDefault();
             var params = {
                 FunctionName: functionname,
-                Payload: '{"photo_name": "' + photoname + '.jpg" }'
+                Payload: JSON.stringify({photo_name:photoname})
             };
             lambda.invoke(params, function (err, data) {
                 if (err) {
@@ -79,7 +80,7 @@
 
 
         };
-    };
+    }
 
     /**
      * populate DOM with values from the lambda operation.
@@ -91,9 +92,9 @@
     function displayresult (info) {
         var d = new Date();
 
-        window.document.getElementById('jobtime').innerHTML = info.jobtime + "ms";
-        window.document.getElementById('facecount').innerHTML = info.facecount;
-        window.document.getElementById('outputMain').src = 'http://' + info.result_uri + '?' + d.getSeconds();
+        window.document.getElementById("jobtime").innerHTML = info.jobtime + "ms";
+        window.document.getElementById("facecount").innerHTML = info.facecount;
+        window.document.getElementById("outputMain").src = "http://" + info.result_uri + "?" + d.getSeconds();
 
     }
 
@@ -105,7 +106,7 @@
      * @returns {void}
      */
     function displayloader (bool) {
-        window.document.getElementById('loader').style.display = (bool)?'block':'none';
+        window.document.getElementById("loader").style.display = (bool)?"block":"none";
     }
 
     /**
@@ -163,7 +164,7 @@
          */
         this.hideslides = function () {
             var end = slides.length;
-            for (var i = 0; i < end; i++) {
+            for (var i = 0; i < end; i+=1) {
                 slides[i].style.display = "none";
             }
         };
@@ -181,18 +182,18 @@
             } else {
                 slideindex++;
             }
-        }
+        };
     }
 
     // reveal module.
     window.anony = {
         bindThumbs: bindThumbs,
-        bindSlides: bindSlides,
+        bindSlides: bindSlides
     };
 })(window, AWS);
 
 
-document.addEventListener('DOMContentLoaded', function (){
+document.addEventListener("DOMContentLoaded", function (){
     anony.bindThumbs(document.getElementsByClassName("img-hover-zoom"));
     anony.bindSlides(document.getElementsByClassName("slide"));
 });
