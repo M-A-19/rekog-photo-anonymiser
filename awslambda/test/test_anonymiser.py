@@ -16,16 +16,11 @@ def fixture_subject():
 
 
 @pytest.mark.parametrize("relative_vars, expected", [
-    ((0.12429263442754745,
-      0.23144002258777618,
-      0.5118623375892639,
+    ((0.12429263442754745, 0.23144002258777618, 0.5118623375892639,
       0.20334899425506592), ((51, 20), (63, 43))),
-    ((0.12429263442754745,
-      0.23144002258777618,
-      0.0018623375892639,
+    ((0.12429263442754745, 0.23144002258777618, 0.0018623375892639,
       0.0334899425506592), ((0, 3), (12, 26))),
 ])
-
 def test_position_from_bounding_box(subject, relative_vars, expected):
     """
     Test the position_from_bounding_box() method.
@@ -47,11 +42,8 @@ def test_position_from_bounding_box(subject, relative_vars, expected):
 
 
 @pytest.mark.parametrize("box_coords, expected", [
-    (((51, 20),
-      (63, 43)),
-     (57, 31)),
+    (((51, 20), (63, 43)), (57, 31)),
 ])
-
 def test_find_box_centre(subject, box_coords, expected):
     """
     Test the find_box_centre method
